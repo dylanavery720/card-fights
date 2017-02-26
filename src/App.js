@@ -21,7 +21,8 @@ class App extends Component {
     this.state = {
       data: null,
       team: [],
-      ready: true
+      ready: true,
+      ops: []
     }
   }
 
@@ -39,14 +40,23 @@ apiCall() {
     let randoFunc = () => this.state.data.characters[Math.floor(this.state.data.characters.length * Math.random())]
     let rando1 = randoFunc()
     let rando2 = randoFunc()
+    if(this.state.ops.length > 1){
+      return this.state.ops.map(char => {
+        return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      })
+    }  else {
+        return <div><h1>YOUR OPPONENTS</h1><div className='card-hold'><img className="cards" alt="alt" src={`./${rando1.imgid}.jpg`} /><p>{rando1.name}</p></div><div className='card-hold'><img className="cards" alt="alt" src={`./${rando2.imgid}.jpg`} /><p>{rando2.name}</p></div></div>
+      }
+  }
 
-      return <div><h1>YOUR OPPONENTS</h1><div className='card-hold'><img className="cards" alt="alt" src={`./${rando1.imgid}.jpg`} /><p>{rando1.name}</p></div><div className='card-hold'><img className="cards" alt="alt" src={`./${rando2.imgid}.jpg`} /><p>{rando2.name}</p></div></div>
-
+  chooseChar(e, char) {
+    console.log(e.target.checked)
+    this.setState({team: [...this.state.team, char]})
   }
 
   loadChoices() {
     return this.state.data.characters.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><input type='radio' value={char} checked={false} onChange={(e) => this.chooseChar(e, char)} /><label>{char.name}</label></div>
     })
   }
 

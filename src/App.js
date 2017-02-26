@@ -20,7 +20,8 @@ class App extends Component {
     super()
     this.state = {
       data: null,
-      team: []
+      team: [],
+      ready: true
     }
   }
 
@@ -50,6 +51,7 @@ apiCall() {
   }
 
   startFight() {
+    this.setState({ready: false})
     browserHistory.push('/fight')
   }
 
@@ -60,14 +62,13 @@ apiCall() {
           <img src={logo} className="App-logo" alt="logo" />
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
         </div>
-        <div>
+        {this.state.ready && <div>
         {this.state.data && this.loadTwoRandom()}
         <div>
           <h2>CHOOSE YOUR TEAM OF 2</h2>
         {this.state.data && this.loadChoices()}
         </div>
-        </div>
-        <button onClick={this.startFight.bind(this)}>Submit</button>
+        <button onClick={this.startFight.bind(this)}>Submit</button></div>}
       </div>
     );
   }

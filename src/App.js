@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router'
 import logo from './Hulk5';
 import './App.css';
 import '../public/surfer.jpg';
@@ -18,7 +19,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      data: null
+      data: null,
+      team: []
     }
   }
 
@@ -47,6 +49,10 @@ apiCall() {
     })
   }
 
+  startFight() {
+    browserHistory.push('/fight')
+  }
+
   render() {
     return (
       <div className="App">
@@ -54,7 +60,14 @@ apiCall() {
           <img src={logo} className="App-logo" alt="logo" />
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
         </div>
+        <div>
         {this.state.data && this.loadTwoRandom()}
+        <div>
+          <h2>CHOOSE YOUR TEAM OF 2</h2>
+        {this.state.data && this.loadChoices()}
+        </div>
+        </div>
+        <button onClick={this.startFight.bind(this)}>Submit</button>
       </div>
     );
   }

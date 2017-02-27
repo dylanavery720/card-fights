@@ -9,7 +9,7 @@ import './index.css';
 const routes = (
   <Router history={browserHistory} >
     <Route path='/' component={App}>
-      <Route path='/fight' component={Fight} />
+      <Route path='fight' component={Fight} />
     </Route>
   </Router>
 )

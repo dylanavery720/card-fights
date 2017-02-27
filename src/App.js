@@ -8,7 +8,7 @@ import '../public/thanos.jpg';
 import '../public/galactus.jpg';
 
 
-// 1. two random opponents pop up
+// 1. two random opponents pop up , HAVE THEM POP UP ON SUBMIT???
 // 2. select two card to fight them
 // 3. function to combine stats of each pair and then compare each combination
 // 4. animation for each comparison of combination (sushi jiggler style)
@@ -40,8 +40,10 @@ apiCall() {
     let randoFunc = () => this.state.data.characters[Math.floor(this.state.data.characters.length * Math.random())]
     let rando1 = randoFunc()
     let rando2 = randoFunc()
+
     if(this.state.ops.length > 1){
       return this.state.ops.map(char => {
+        this.setState({ops: [...this.state.ops, char]})
         return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
       })
     }  else {
@@ -50,13 +52,12 @@ apiCall() {
   }
 
   chooseChar(e, char) {
-    console.log(e.target.checked)
     this.setState({team: [...this.state.team, char]})
   }
 
   loadChoices() {
     return this.state.data.characters.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><input type='radio' value={char} checked={false} onChange={(e) => this.chooseChar(e, char)} /><label>{char.name}</label></div>
+      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><input type='radio' value={char} checked={null} onChange={(e) => this.chooseChar(e, char)} /><label>{char.name}</label></div>
     })
   }
 
@@ -79,6 +80,7 @@ apiCall() {
         {this.state.data && this.loadChoices()}
         </div>
         <button onClick={this.startFight.bind(this)}>Submit</button></div>}
+        {!this.state.ready && React.cloneElement(this.props.children, {randos: this.state.ops, team: this.state.team})}
       </div>
     );
   }

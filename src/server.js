@@ -59,6 +59,9 @@ app.locals.cards = [{
         { speed: {score: 7} }
       ]
     },
+    //paper rock sciccor mechanic speed vs. strength etc.
+    // dice rolls per score level, 7 dice rolls, 6 sided die..
+
     {
       id: 1478253351172,
       name: 'Adam Warlock',

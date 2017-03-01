@@ -15,7 +15,6 @@ import '../public/galactus.jpg';
 // 5. post to scores upon completion, final score, return result win or lose
 
 class Fight extends Component {
-
   constructor() {
     super()
     this.state = {
@@ -27,11 +26,26 @@ class Fight extends Component {
 
   }
 
-  loadRandos() {
-    return this.props.randos.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
-    })
+  loadTwoRandom() {
+    let randoFunc = () => this.props.data.characters[Math.floor(this.props.data.characters.length * Math.random())]
+    let rando1 = randoFunc()
+    let rando2 = randoFunc()
+
+    if(this.props.ops.length > 1){
+      return this.props.ops.map(char => {
+        this.setState({ops: [...this.props.ops, char]})
+        return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      })
+    }  else {
+        return <div><h1>YOUR OPPONENTS</h1><div className='card-hold'><img className="cards" alt="alt" src={`./${rando1.imgid}.jpg`} /><p>{rando1.name}</p></div><div className='card-hold'><img className="cards" alt="alt" src={`./${rando2.imgid}.jpg`} /><p>{rando2.name}</p></div></div>
+      }
   }
+
+  // loadRandos() {
+  //   return this.props.randos.map(char => {
+  //     return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+  //   })
+  // }
 
   loadTeam() {
     return this.props.team.map(char => {
@@ -39,11 +53,18 @@ class Fight extends Component {
     })
   }
 
+  postFight() {
+    
+  }
+
   render() {
     return (
       <div>
-        <div>{this.loadRandos()}</div>
-        <div>{this.loadTeam()}</div>
+        <div>
+        <h1>YOUR TEAM</h1>
+          {this.loadTeam()}
+        </div>
+        <div>{this.loadTwoRandom()}</div>
       </div>
     );
   }

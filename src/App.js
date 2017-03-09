@@ -37,12 +37,24 @@ apiCall() {
   }
 
   chooseChar(e, char) {
-    this.setState({team: [...this.state.team, char]})
+    console.log('working')
+    if(this.state.team.length < 1) {
+      this.setState({team: [char]})
+    } else {
+    this.setState({team: [char, this.state.team[0]]})
+    }
   }
 
   loadChoices() {
     return this.state.data.characters.map((char, i) => {
-      return <div key={i}><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><input type='radio' value={char} checked={null} onChange={(e) => this.chooseChar(e, char)} /><label>{char.name}</label></div>
+      return <div key={i} className="choices">
+                <img className="cards" alt="alt" src={`./${char.imgid}.jpg`} />
+                <button
+                  value={char}
+                  className="block"
+                  onClick={(e) => this.chooseChar(e, char)}>ADD</button>
+                <label>{char.name}</label>
+              </div>
     })
   }
 
@@ -57,14 +69,16 @@ apiCall() {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
+          {this.state.team.map(char => <h2>{char.name}</h2>)}
         </div>
-        {/* {this.state.ready && <div>
-        {this.state.data && this.loadTwoRandom()} */}
         {this.state.ready && <div>
           <h2>CHOOSE YOUR TEAM OF 2</h2>
         {this.state.data && this.loadChoices()}
         <button onClick={this.startFight.bind(this)}>Submit</button></div>}
-        {!this.state.ready && React.cloneElement(this.props.children, {ops: this.state.ops, team: this.state.team, data: this.state.data})}
+        {!this.state.ready && React.cloneElement(this.props.children,
+          {ops: this.state.ops,
+            team: this.state.team,
+            data: this.state.data})}
       </div>
     );
   }

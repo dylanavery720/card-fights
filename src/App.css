@@ -40,6 +40,20 @@
   display: inline-block;
 }
 
+.team-display{
+  float: left;
+}
+
+.block {
+  display: block;
+  margin: 0 auto;
+}
+
+.choices {
+  width: 400px;
+  margin: 0 auto;
+}
+
 input {
   display: block;
   margin: 0 auto;

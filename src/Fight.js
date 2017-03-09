@@ -19,6 +19,7 @@ class Fight extends Component {
     super()
     this.state = {
       teamdice: 0,
+      oppdice: 0,
       ops: []
     }
   }
@@ -48,9 +49,9 @@ class Fight extends Component {
     })
   }
 
-  rolldie() {
+  rolldie(e) {
     let roll = Math.floor(Math.random() * 6 + 1)
-    this.setState({teamdice: roll})
+    this.setState({[e.target.id]: roll})
   }
 
   render() {
@@ -58,9 +59,10 @@ class Fight extends Component {
       <div>
         <h1>YOUR TEAM</h1>
         <div>{this.loadTeam()}</div>
-        <div><button onClick={this.rolldie.bind(this)}>{this.state.teamdice}</button></div>
+        <div><button id="teamdice" onClick={(e) => this.rolldie(e)}>{this.state.teamdice}</button></div>
         <h1>YOUR OPPONENTS</h1>
         <div>{this.loadTwoRandom()}</div>
+        <div><button id="oppdice" onClick={(e) => this.rolldie(e)}>{this.state.oppdice}</button></div>
       </div>
     );
   }

@@ -31,10 +31,10 @@
   margin: 5px;
 }
 
-.cards:hover {
+/*.cards:hover {
     border: 4px solid pink;
     transform: scale(1);
-}
+}*/
 
 .card-hold {
   display: inline-block;

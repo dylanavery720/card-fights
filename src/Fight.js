@@ -20,6 +20,8 @@ class Fight extends Component {
     this.state = {
       teamdice: 0,
       oppdice: 0,
+      teamrolls: 2,
+      opprolls: 2,
       ops: []
     }
   }
@@ -50,8 +52,25 @@ class Fight extends Component {
   }
 
   rolldie(e) {
+    this.dieCap(e)
+    if(e.target.value < 1) {
+      return
+    }
     let roll = Math.floor(Math.random() * 6 + 1)
     this.setState({[e.target.id]: roll})
+  }
+
+  dieCap(e){
+    let change = {};
+    change[e.target.name] = e.target.value-1;
+    console.log(change)
+    this.setState(change, () => this.finishGame())
+  }
+
+  finishGame(){
+    if (this.state.teamrolls < 1 && this.state.opprolls < 1) {
+      browserHistory.push('/final')
+    }
   }
 
   render() {
@@ -59,10 +78,12 @@ class Fight extends Component {
       <div>
         <h1>YOUR TEAM</h1>
         <div>{this.loadTeam()}</div>
-        <div><button id="teamdice" onClick={(e) => this.rolldie(e)}>{this.state.teamdice}</button></div>
+        <div><button id="teamdice" name="teamrolls" value={this.state.teamrolls} onClick={(e) => this.rolldie(e)}>{this.state.teamdice}</button></div>
+        {this.state.teamrolls < 1 && <p>YOU ARE OUT OF TURNS</p>}
         <h1>YOUR OPPONENTS</h1>
         <div>{this.loadTwoRandom()}</div>
-        <div><button id="oppdice" onClick={(e) => this.rolldie(e)}>{this.state.oppdice}</button></div>
+        <div><button id="oppdice" name="opprolls" value={this.state.opprolls} onClick={(e) => this.rolldie(e)}>{this.state.oppdice}</button></div>
+        {this.state.opprolls < 1 && <p>YOUR OPPONENT IS OUT OF TURNS</p>}
       </div>
     );
   }

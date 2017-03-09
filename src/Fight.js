@@ -15,35 +15,54 @@ import '../public/galactus.jpg';
 // 5. post to scores upon completion, final score, return result win or lose
 
 class Fight extends Component {
-
   constructor() {
     super()
     this.state = {
-
+      teamdice: 0,
+      oppdice: 0,
+      ops: []
     }
   }
 
   componentDidMount() {
-
+    let randoFunc = () => this.props.data.characters[Math.floor(this.props.data.characters.length * Math.random())]
+    let rando1 = randoFunc()
+    let rando2 = randoFunc()
+    this.setState({ops: [rando1, rando2]})
   }
 
-  loadRandos() {
-    return this.props.randos.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
-    })
+  loadTwoRandom() {
+      return this.state.ops.map(char => {
+        return <div className='card-hold'><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      })
   }
+
+  // loadRandos() {
+  //   return this.props.randos.map(char => {
+  //     return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+  //   })
+  // }
 
   loadTeam() {
     return this.props.team.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      return <div className="card-hold"><img className="cards card-hold" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
     })
+  }
+
+  rolldie(e) {
+    let roll = Math.floor(Math.random() * 6 + 1)
+    this.setState({[e.target.id]: roll})
   }
 
   render() {
     return (
       <div>
-        <div>{this.loadRandos()}</div>
+        <h1>YOUR TEAM</h1>
         <div>{this.loadTeam()}</div>
+        <div><button id="teamdice" onClick={(e) => this.rolldie(e)}>{this.state.teamdice}</button></div>
+        <h1>YOUR OPPONENTS</h1>
+        <div>{this.loadTwoRandom()}</div>
+        <div><button id="oppdice" onClick={(e) => this.rolldie(e)}>{this.state.oppdice}</button></div>
       </div>
     );
   }

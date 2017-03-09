@@ -15,11 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('port', process.env.PORT || 3001);
 app.locals.title = 'Marvel Card Fights'
+
 app.locals.scores = {
-  lowest: 'You are a SyntaxError! Even the most experienced and thoughtful developers are gunna miss a comma once in a while.',
-  low: 'You are a...ReferenceError! Trying to reference a variable that doesnt exist? If you love something, let it go. If it comes back to you, immediately push to master and thank your lucky stars.',
-  high: 'You are a...TypeError! When undefined is not a function, burn everything to the ground.',
-  highest: 'You are an InternalError! Something is very wrong deep down inside, but its nearly impossible to figure out what.'
+  lose: 'You lost.',
+  win: 'You won!!',
+  tie: 'Oh wow its a tie.'
 }
 
 app.locals.cards = [{
@@ -59,6 +59,9 @@ app.locals.cards = [{
         { speed: {score: 7} }
       ]
     },
+    //paper rock sciccor mechanic speed vs. strength etc.
+    // dice rolls per score level, 7 dice rolls, 6 sided die..
+
     {
       id: 1478253351172,
       name: 'Adam Warlock',
@@ -78,72 +81,23 @@ app.get('/cards', (request, response) => {
   response.send({ cards: app.locals.cards });
 });
 
-// Get a single quiz
-app.get('/quizzes/:id', (request, response) => {
-  const { id } = request.params;
-  const quiz = app.locals.cards.find(q => q.id == id);
-  if (quiz) { return response.send({ quiz }); }
-  else { return response.sendStatus(404); }
-});
-
-// Delete a question
-app.delete('/quizzes/:quizId/questions/:questionId', (request, response) => {
-  const { questionId, quizId } = request.params;
-  const targetQuiz = app.locals.quizzes.find(q => q.id === parseInt(quizId));
-
-  if (targetQuiz) {
-    const quiz = targetQuiz.questions.filter(question => parseInt(questionId) !== question.id);
-    return response.send({ quiz });
-  } else {
-    return response
-      .status(404)
-      .send( { error: `The questions with an id of ${questionId} could not be deleted.`});
-  }
-
-});
-
-// Add a new question
-app.post('/quizzes/:quizId/questions', (request, response) => {
-  const { quizId } = request.params;
-  const question = request.body;
-
-  for (let requiredParameter of ['title', 'answers']) {
-    if (!question[requiredParameter]) {
-      return response
-        .status(422)
-        .send({ error: `Expected format: { title: <String>, answers: <Array> }. You're missing a "${requiredParameter}" property.` });
-    }
-  }
-
-  question.id = question.id || Date.now();
-
-  const quiz = app.locals.quizzes.find(q => q.id == quizId);
-  if (quiz) {
-    quiz.questions.push(question);
-    return response.send({ quiz });
-  } else {
-    return response
-      .status(404)
-      .send({ error: `Quiz with an id of ${quizId} not found.` });
-    }
-});
 
 // Submit a score
-app.post('/scores', (request, response) => {
-  const { score } = request.body;
+app.post('/finalscore', (request, response) => {
+  const { scores } = request.body;
   let scoreType;
 
-  if (0 <= score && score < 4) {
-    scoreType = 'lowest';
+  if (scores.ops > scores.team) {
+    scoreType = 'lose';
   }
-  else if (4 <= score && score < 8) {
-    scoreType = 'low';
+  else if (score.ops < scores.team) {
+    scoreType = 'win';
   }
-  else if (8 <= score && score <= 12) {
-    scoreType = 'high';
+  else if (scores.ops === scores.team) {
+    scoreType = 'tie';
   }
   else {
-    scoreType = 'highest';
+    console.log('error')
   }
 
   switch(scoreType) {

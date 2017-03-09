@@ -4,7 +4,8 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 100px;
+  border-radius: 35%;
 }
 
 .App-header {
@@ -38,6 +39,24 @@
 
 .card-hold {
   display: inline-block;
+}
+
+.team-display{
+  color: black;
+  text-shadow: -1px 0 yellowgreen, 0 1px yellowgreen, 1px 0 yellowgreen, 0 -1px yellowgreen;
+  display: block;
+  width: 20%;
+  position: absolute;
+}
+
+.block {
+  display: block;
+  margin: 0 auto;
+}
+
+.choices {
+  width: 400px;
+  margin: 0 auto;
 }
 
 input {

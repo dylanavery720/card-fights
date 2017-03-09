@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router'
-import logo from './Hulk5';
-import './App.css';
-import '../public/surfer.jpg';
-import '../public/warlock.jpg';
-import '../public/thanos.jpg';
-import '../public/galactus.jpg';
+import '../../../public/surfer.jpg';
+import '../../../public/warlock.jpg';
+import '../../../public/thanos.jpg';
+import '../../../public/galactus.jpg';
 
 
 // 1. two random opponents pop up

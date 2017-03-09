@@ -18,27 +18,22 @@ class Fight extends Component {
   constructor() {
     super()
     this.state = {
-
+      teamdice: 0,
+      ops: []
     }
   }
 
   componentDidMount() {
-
-  }
-
-  loadTwoRandom() {
     let randoFunc = () => this.props.data.characters[Math.floor(this.props.data.characters.length * Math.random())]
     let rando1 = randoFunc()
     let rando2 = randoFunc()
+    this.setState({ops: [rando1, rando2]})
+  }
 
-    if(this.props.ops.length > 1){
-      return this.props.ops.map(char => {
-        this.setState({ops: [...this.props.ops, char]})
-        return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+  loadTwoRandom() {
+      return this.state.ops.map(char => {
+        return <div className='card-hold'><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
       })
-    }  else {
-        return <div><h1>YOUR OPPONENTS</h1><div className='card-hold'><img className="cards" alt="alt" src={`./${rando1.imgid}.jpg`} /><p>{rando1.name}</p></div><div className='card-hold'><img className="cards" alt="alt" src={`./${rando2.imgid}.jpg`} /><p>{rando2.name}</p></div></div>
-      }
   }
 
   // loadRandos() {
@@ -49,21 +44,22 @@ class Fight extends Component {
 
   loadTeam() {
     return this.props.team.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      return <div className="card-hold"><img className="cards card-hold" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
     })
   }
 
-  postFight() {
-    
+  rolldie() {
+    let roll = Math.floor(Math.random() * 6 + 1)
+    this.setState({teamdice: roll})
   }
 
   render() {
     return (
       <div>
-        <div>
         <h1>YOUR TEAM</h1>
-          {this.loadTeam()}
-        </div>
+        <div>{this.loadTeam()}</div>
+        <div><button onClick={this.rolldie.bind(this)}>{this.state.teamdice}</button></div>
+        <h1>YOUR OPPONENTS</h1>
         <div>{this.loadTwoRandom()}</div>
       </div>
     );

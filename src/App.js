@@ -41,8 +41,8 @@ apiCall() {
   }
 
   loadChoices() {
-    return this.state.data.characters.map(char => {
-      return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><input type='radio' value={char} checked={null} onChange={(e) => this.chooseChar(e, char)} /><label>{char.name}</label></div>
+    return this.state.data.characters.map((char, i) => {
+      return <div key={i}><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><input type='radio' value={char} checked={null} onChange={(e) => this.chooseChar(e, char)} /><label>{char.name}</label></div>
     })
   }
 

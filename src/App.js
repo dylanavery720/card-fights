@@ -67,9 +67,12 @@ apiCall() {
     return (
       <div className="App">
         <div className="App-header">
+          <h2 className="team-display">YOUR TEAM:</h2>
+          <div>
           <img src={logo} className="App-logo" alt="logo" />
+          {this.state.team.map(char => <h2 className="team-display">{char.name}</h2>)}
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
-          {this.state.team.map(char => <h2>{char.name}</h2>)}
+        </div>
         </div>
         {this.state.ready && <div>
           <h2>CHOOSE YOUR TEAM OF 2</h2>

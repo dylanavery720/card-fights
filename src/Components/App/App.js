@@ -19,7 +19,6 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      team: [],
       ready: true,
       ops: []
     }
@@ -36,10 +35,10 @@ apiCall() {
   }
 
   handleChar(e, char) {
-    if(this.state.team.length < 1) {
+    if(this.props.team.length < 1) {
       this.props.chooseChar([char])
     } else {
-    this.props.chooseChar([char, this.state.team[0]])
+    this.props.chooseChar([char, this.props.team[0]])
     }
   }
 
@@ -68,7 +67,7 @@ apiCall() {
           <h2 className="team-display">YOUR TEAM:</h2>
           <div>
           <img src={logo} className="App-logo" alt="logo" />
-          {this.state.team.map(char => <h2 className="team-display">{char.name}</h2>)}
+          {this.props.team.map(char => <h2 className="team-display">{char.name}</h2>)}
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
         </div>
         </div>
@@ -78,7 +77,7 @@ apiCall() {
         <button onClick={this.startFight.bind(this)}>Submit</button></div>}
         {!this.state.ready && React.cloneElement(this.props.children,
           {ops: this.state.ops,
-            team: this.state.team,
+            team: this.props.team,
             data: this.props.data})}
       </div>
     );

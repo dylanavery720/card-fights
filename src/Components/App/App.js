@@ -19,8 +19,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      ready: true,
-      ops: []
+      ready: true
     }
   }
 
@@ -75,10 +74,7 @@ apiCall() {
           <h2>CHOOSE YOUR TEAM OF 2</h2>
         {this.props.data && this.loadChoices()}
         <button onClick={this.startFight.bind(this)}>Submit</button></div>}
-        {!this.state.ready && React.cloneElement(this.props.children,
-          {ops: this.state.ops,
-            team: this.props.team,
-            data: this.props.data})}
+        {!this.state.ready && this.props.children}
       </div>
     );
   }

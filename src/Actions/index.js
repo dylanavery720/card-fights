@@ -8,6 +8,6 @@ export const fetchCards = (payload) => {
 export const chooseChar = (array) => {
    return {
      type: 'CHOOSE_CHAR',
-     team: array,
+     array,
    }
 }

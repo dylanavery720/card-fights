@@ -2,14 +2,14 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const http = require('http').Server(app);
-// const cors = require('express-cors');
+const cors = require('express-cors');
 const bodyParser = require('body-parser');
 var path    = require("path");
 const logger = require('express-logger');
 const locus = require('locus');
 
 
-// app.use(cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));

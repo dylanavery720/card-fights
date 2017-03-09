@@ -63,7 +63,6 @@ class Fight extends Component {
   dieCap(e){
     let change = {};
     change[e.target.name] = e.target.value-1;
-    console.log(change)
     this.setState(change, () => this.finishGame())
   }
 

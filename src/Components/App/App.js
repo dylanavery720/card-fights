@@ -19,7 +19,6 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      data: null,
       team: [],
       ready: true,
       ops: []
@@ -33,26 +32,25 @@ class App extends Component {
 apiCall() {
   fetch(`http://localhost:3001/cards`)
   .then(response => response.json())
-  .then(data => this.setState({data: data.cards[0]}))
+  .then(data => this.props.fetchCards(data.cards[0]))
   }
 
-  chooseChar(e, char) {
-    console.log('working')
+  handleChar(e, char) {
     if(this.state.team.length < 1) {
-      this.setState({team: [char]})
+      this.props.chooseChar([char])
     } else {
-    this.setState({team: [char, this.state.team[0]]})
+    this.props.chooseChar([char, this.state.team[0]])
     }
   }
 
   loadChoices() {
-    return this.state.data.characters.map((char, i) => {
+    return this.props.data.characters.map((char, i) => {
       return <div key={i} className="choices">
                 <img className="cards" alt="alt" src={`./${char.imgid}.jpg`} />
                 <button
                   value={char}
                   className="block"
-                  onClick={(e) => this.chooseChar(e, char)}>ADD</button>
+                  onClick={(e) => this.handleChar(e, char)}>ADD</button>
                 <label>{char.name}</label>
               </div>
     })
@@ -76,12 +74,12 @@ apiCall() {
         </div>
         {this.state.ready && <div>
           <h2>CHOOSE YOUR TEAM OF 2</h2>
-        {this.state.data && this.loadChoices()}
+        {this.props.data && this.loadChoices()}
         <button onClick={this.startFight.bind(this)}>Submit</button></div>}
         {!this.state.ready && React.cloneElement(this.props.children,
           {ops: this.state.ops,
             team: this.state.team,
-            data: this.state.data})}
+            data: this.props.data})}
       </div>
     );
   }

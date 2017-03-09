@@ -1,9 +1,14 @@
 import { connect } from 'react-redux'
-// import { displaySearched } from '../Actions/index.js'
+import { fetchCards, chooseChar } from '../Actions/index.js'
 import App from '../Components/App/App'
 
-// const mapDispatchToProps = {
-//   displaySearched,
-// }
+const mapStateToProps = (state) => {
+  return { data: state.app.data, team: state.app.team }
+}
 
-export default connect(null, null)(App)
+const mapDispatchToProps = {
+  fetchCards,
+  chooseChar,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

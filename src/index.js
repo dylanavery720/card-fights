@@ -3,19 +3,18 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-// import App from './Components/App/App';
-// import Fight from './Components/Fight/Fight';
-// import Final from './Components/Final/Final';
+
 import FightContainer from './Containers/FightContainer'
 import AppContainer from './Containers/AppContainer'
 import FinalContainer from './Containers/FinalContainer'
 import './index.css';
+import app from './Reducers/app'
+import fight from './Reducers/fight'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(combineReducers({}),
+const store = createStore(combineReducers({ app, fight }),
 {
-    tree: {
       fight: {
       teamdice: 0,
       oppdice: 0,
@@ -28,8 +27,7 @@ const store = createStore(combineReducers({}),
         team: [],
         ready: true,
       }
-  }
-})
+}, composeEnhancers(applyMiddleware()) )
 
 const routes = (
 <Provider store={store}>

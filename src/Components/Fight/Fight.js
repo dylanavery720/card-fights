@@ -28,13 +28,20 @@ class Fight extends Component {
     let randoFunc = () => this.props.data.characters[Math.floor(this.props.data.characters.length * Math.random())]
     let rando1 = randoFunc()
     let rando2 = randoFunc()
-    this.setState({ops: [rando1, rando2]})
+    this.setState({ops: [rando1, rando2]}, () => this.assignRolls())
   }
 
   loadTwoRandom() {
       return this.state.ops.map(char => {
         return <div className='card-hold'><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
       })
+  }
+
+  assignRolls() {
+    let teamScore = this.props.team.reduce((acc, val, index, array) => {
+          val.skills.map(skill => console.log(skill))
+    }, 0)
+    this.setState({opprolls: 3, teamrolls: 3})
   }
 
   loadTeam() {

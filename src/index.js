@@ -25,7 +25,6 @@ const store = createStore(combineReducers({ app, fight }),
       app: {
         data: null,
         team: [],
-        ready: true,
       }
 }, composeEnhancers(applyMiddleware()) )
 

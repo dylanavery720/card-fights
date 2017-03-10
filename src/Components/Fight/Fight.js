@@ -37,12 +37,6 @@ class Fight extends Component {
       })
   }
 
-  // loadRandos() {
-  //   return this.props.randos.map(char => {
-  //     return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
-  //   })
-  // }
-
   loadTeam() {
     return this.props.team.map(char => {
       return <div className="card-hold"><img className="cards card-hold" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>

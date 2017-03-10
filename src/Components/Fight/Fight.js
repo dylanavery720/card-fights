@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router'
-import logo from './Hulk5';
-import './App.css';
-import '../public/surfer.jpg';
-import '../public/warlock.jpg';
-import '../public/thanos.jpg';
-import '../public/galactus.jpg';
+import '../../../public/surfer.jpg';
+import '../../../public/warlock.jpg';
+import '../../../public/thanos.jpg';
+import '../../../public/galactus.jpg';
 
 
 // 1. two random opponents pop up
@@ -38,12 +36,6 @@ class Fight extends Component {
         return <div className='card-hold'><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
       })
   }
-
-  // loadRandos() {
-  //   return this.props.randos.map(char => {
-  //     return <div><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
-  //   })
-  // }
 
   loadTeam() {
     return this.props.team.map(char => {

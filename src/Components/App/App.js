@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router'
-import logo from './Hulk5';
+import logo from '../../Hulk5';
 import './App.css';
-import '../public/surfer.jpg';
-import '../public/warlock.jpg';
-import '../public/thanos.jpg';
-import '../public/galactus.jpg';
+import '../../../public/surfer.jpg';
+import '../../../public/warlock.jpg';
+import '../../../public/thanos.jpg';
+import '../../../public/galactus.jpg';
 
 
 // 1. two random opponents pop up , HAVE THEM POP UP ON SUBMIT???
@@ -19,10 +19,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      data: null,
-      team: [],
-      ready: true,
-      ops: []
+      ready: true
     }
   }
 
@@ -33,26 +30,25 @@ class App extends Component {
 apiCall() {
   fetch(`http://localhost:3001/cards`)
   .then(response => response.json())
-  .then(data => this.setState({data: data.cards[0]}))
+  .then(data => this.props.fetchCards(data.cards[0]))
   }
 
-  chooseChar(e, char) {
-    console.log('working')
-    if(this.state.team.length < 1) {
-      this.setState({team: [char]})
+  handleChar(e, char) {
+    if(this.props.team.length < 1) {
+      this.props.chooseChar([char])
     } else {
-    this.setState({team: [char, this.state.team[0]]})
+    this.props.chooseChar([char, this.props.team[0]])
     }
   }
 
   loadChoices() {
-    return this.state.data.characters.map((char, i) => {
+    return this.props.data.characters.map((char, i) => {
       return <div key={i} className="choices">
                 <img className="cards" alt="alt" src={`./${char.imgid}.jpg`} />
                 <button
                   value={char}
                   className="block"
-                  onClick={(e) => this.chooseChar(e, char)}>ADD</button>
+                  onClick={(e) => this.handleChar(e, char)}>ADD</button>
                 <label>{char.name}</label>
               </div>
     })
@@ -70,18 +66,15 @@ apiCall() {
           <h2 className="team-display">YOUR TEAM:</h2>
           <div>
           <img src={logo} className="App-logo" alt="logo" />
-          {this.state.team.map(char => <h2 className="team-display">{char.name}</h2>)}
+          {this.props.team.map(char => <h2 className="team-display">{char.name}</h2>)}
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
         </div>
         </div>
         {this.state.ready && <div>
           <h2>CHOOSE YOUR TEAM OF 2</h2>
-        {this.state.data && this.loadChoices()}
+        {this.props.data && this.loadChoices()}
         <button onClick={this.startFight.bind(this)}>Submit</button></div>}
-        {!this.state.ready && React.cloneElement(this.props.children,
-          {ops: this.state.ops,
-            team: this.state.team,
-            data: this.state.data})}
+        {!this.state.ready && this.props.children}
       </div>
     );
   }

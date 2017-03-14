@@ -38,9 +38,6 @@ class Fight extends Component {
   }
 
   assignRolls() {
-    let teamScore = this.props.team.reduce((acc, val, index, array) => {
-          val.skills.map(skill => console.log(skill))
-    }, 0)
     this.setState({opprolls: 3, teamrolls: 3})
   }
 

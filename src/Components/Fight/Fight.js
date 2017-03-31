@@ -32,18 +32,27 @@ class Fight extends Component {
   }
 
   loadTwoRandom() {
-      return this.state.ops.map(char => {
-        return <div className='card-hold'><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+      return this.state.ops.map((char,i) => {
+        return <div key={i} className='card-hold'><img className="cards" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
       })
   }
 
   assignRolls() {
-    this.setState({opprolls: 3, teamrolls: 3})
+    let skillz = this.state.ops.map((char, i) => char.skills)
+    let arr1 = skillz[0]
+    let arr2 = skillz[1]
+    let arr3 = arr1.map((obj, i) => {
+      let objKey = Object.keys(obj)[0]
+      let value = obj[objKey] + arr2[i][objKey]
+      return { [objKey]: value}
+    })
+    console.log(arr3)
+    // this.setState({opprolls: 3, teamrolls: 3})
   }
 
   loadTeam() {
-    return this.props.team.map(char => {
-      return <div className="card-hold"><img className="cards card-hold" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
+    return this.props.team.map((char,i) => {
+      return <div key={i} className="card-hold"><img className="cards card-hold" alt="alt" src={`./${char.imgid}.jpg`} /><p>{char.name}</p></div>
     })
   }
 

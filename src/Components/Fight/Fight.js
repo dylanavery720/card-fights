@@ -41,11 +41,13 @@ class Fight extends Component {
     let skillz = this.state.ops.map((char, i) => char.skills)
     let arr1 = skillz[0]
     let arr2 = skillz[1]
-    arr1.reduce((obj, skill, i) => {
-      obj[skill] = arr2[i]
-      console.log(obj)
-    }, {})
-    this.setState({opprolls: 3, teamrolls: 3})
+    let arr3 = arr1.map((obj, i) => {
+      let objKey = Object.keys(obj)[0]
+      let value = obj[objKey] + arr2[i][objKey]
+      return { [objKey]: value}
+    })
+    console.log(arr3)
+    // this.setState({opprolls: 3, teamrolls: 3})
   }
 
   loadTeam() {

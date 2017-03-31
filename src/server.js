@@ -31,10 +31,10 @@ app.locals.cards = [{
       name: 'Galactus',
       imgid: 'galactus',
       skills: [
-        { strength: {score: 7} },
-        { intelligence: {score: 5} },
-        { fightingAbility: {score: 2} },
-        { speed: {score: 7} }
+        { strength: 7 },
+        { intelligence: 5 },
+        { fightingAbility: 2 },
+        { speed: 7 }
       ]
     },
     {
@@ -42,10 +42,10 @@ app.locals.cards = [{
       name: 'Thanos',
       imgid: 'thanos',
       skills: [
-        { strength: {score: 6} },
-        { intelligence: {score: 5} },
-        { fightingAbility: {score: 4} },
-        { speed: {score: 6} }
+        { strength: 6 },
+        { intelligence: 5 },
+        { fightingAbility: 4 },
+        { speed: 6 }
       ]
     },
     {
@@ -53,10 +53,10 @@ app.locals.cards = [{
       name: 'Silver Surfer',
       imgid: 'surfer',
       skills: [
-        { strength: {score: 7} },
-        { intelligence: {score: 4} },
-        { fightingAbility: {score: 2} },
-        { speed: {score: 7} }
+        { strength: 7 },
+        { intelligence: 4 },
+        { fightingAbility: 2 },
+        { speed: 7 }
       ]
     },
     //paper rock sciccor mechanic speed vs. strength etc.
@@ -67,10 +67,10 @@ app.locals.cards = [{
       name: 'Adam Warlock',
       imgid: 'warlock',
       skills: [
-        { strength: {score: 5} },
-        { intelligence: {score: 3} },
-        { fightingAbility: {score: 2} },
-        { speed: {score: 7} }
+        { strength: 5 },
+        { intelligence: 3 },
+        { fightingAbility: 2 },
+        { speed: 7 }
       ]
     },
   ]

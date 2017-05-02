@@ -78,6 +78,10 @@ app.get('/cards', (request, response) => {
   response.send({ cards: app.locals.cards });
 });
 
+app.get('/skills', (request, response) => {
+  response.send({ skills: app.locals.skills });
+});
+
 
 // Submit a score
 app.post('/finalscore', (request, response) => {

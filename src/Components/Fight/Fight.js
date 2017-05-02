@@ -43,16 +43,30 @@ class Fight extends Component {
       })
   }
 
+  combineScores(character) {
+    console.log(character)
+     this.setState({oppStrength: this.state.oppStrength + character.strength})
+     this.setState({oppIntelligence: this.state.oppStrength + character.intelligence})
+     this.setState({oppAbility: this.state.oppStrength + character.fightingAbility})
+     this.setState({oppSpeed: this.state.oppStrength + character.speed})
+  }
+
   assignRolls() {
-    let skillz = this.state.ops.map((char, i) => char.skills)
-    let arr1 = skillz[0]
-    let arr2 = skillz[1]
-    let arr3 = arr1.map((obj, i) => {
-      let objKey = Object.keys(obj)[0]
-      let value = obj[objKey] + arr2[i][objKey]
-      return { [objKey]: value}
-    })
-    console.log(arr3)
+    const { ops } = this.state
+    let arr1 = ops[0]
+    let arr2 = ops[1]
+    // let oppStrength = 0
+    // fetch(`http://localhost:3001/skills`)
+    // .then(response => response.json())
+    // .then(data => this.setState({skills: data.skills}, () => {
+    //   for (var char in this.state.skills) {
+    //     if(arr1.id === 1) { this.combineScores(this.state.skills[one])} 
+    //     if(arr1.id === 2) { this.combineScores(this.state.skills[char])} 
+    //     if(arr1.id === 3) { this.combineScores(this.state.skills[char])} 
+    //     if(arr1.id === 4) { this.combineScores(this.state.skills[char])} 
+    //   }
+    // }))
+    // combine scores here using seperate fetch
     // this.setState({opprolls: 3, teamrolls: 3})
   }
 

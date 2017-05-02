@@ -48,6 +48,7 @@
 .choices {
   width: 400px;
   margin: 0 auto;
+  display: inline-block;
 }
 
 input {

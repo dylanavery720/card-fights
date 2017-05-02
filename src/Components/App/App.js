@@ -30,7 +30,7 @@ class App extends Component {
 apiCall() {
   fetch(`http://localhost:3001/cards`)
   .then(response => response.json())
-  .then(data => this.props.fetchCards(data.cards[0]))
+  .then(data => this.props.fetchCards(data.cards))
   }
 
   handleChar(e, char) {
@@ -42,16 +42,19 @@ apiCall() {
   }
 
   loadChoices() {
-    return this.props.data.characters.map((char, i) => {
-      return <div key={i} className="choices">
-                <img className="cards" alt="alt" src={`./${char.imgid}.jpg`} />
+    const { data } = this.props
+    let newArray = []
+    for (var char in data) {
+         newArray.push(<div key={data[char].id} className="choices">
+                <img className="cards" alt="alt" src={`./${data[char].imgid}.jpg`} />
                 <button
-                  value={char}
+                  value={data[char]}
                   className="block"
-                  onClick={(e) => this.handleChar(e, char)}>ADD</button>
-                <label>{char.name}</label>
-              </div>
-    })
+                  onClick={(e) => this.handleChar(e, data[char])}>ADD</button>
+                <label>{data[char].name}</label>
+              </div>)
+    } 
+    return newArray
   }
 
   startFight() {

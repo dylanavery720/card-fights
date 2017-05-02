@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const http = require('http').Server(app);
-const cors = require('express-cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 var path    = require("path");
 const logger = require('express-logger');
@@ -22,59 +22,56 @@ app.locals.scores = {
   tie: 'Oh wow its a tie.'
 }
 
-app.locals.cards = [{
-  title: 'characters',
-  id: 1,
-  characters: [
-    {
-      id: 1478253351169,
-      name: 'Galactus',
-      imgid: 'galactus',
-      skills: [
-        { strength: 7 },
-        { intelligence: 5 },
-        { fightingAbility: 2 },
-        { speed: 7 }
-      ]
-    },
-    {
-      id: 1478253351170,
-      name: 'Thanos',
-      imgid: 'thanos',
-      skills: [
-        { strength: 6 },
-        { intelligence: 5 },
-        { fightingAbility: 4 },
-        { speed: 6 }
-      ]
-    },
-    {
-      id: 1478253351171,
-      name: 'Silver Surfer',
-      imgid: 'surfer',
-      skills: [
-        { strength: 7 },
-        { intelligence: 4 },
-        { fightingAbility: 2 },
-        { speed: 7 }
-      ]
-    },
-    //paper rock sciccor mechanic speed vs. strength etc.
-    // dice rolls per score level, 7 dice rolls, 6 sided die..
+app.locals.skills = {
+  one: {
+    strength: 7,
+    intelligence: 5,
+    fightingAbility: 2,
+    speed: 7 
+  },
+  two: {
+     strength: 6,
+     intelligence: 5,
+     fightingAbility: 4,
+     speed: 6 
+  },
+  three: {
+     strength: 7,
+     intelligence: 4,
+     fightingAbility: 2,
+     speed: 7
+  },
+  four: {
+     strength: 5,
+     intelligence: 3,
+     fightingAbility: 2,
+     speed: 7 
+  }
+}
 
+app.locals.cards = {
+  one: 
     {
-      id: 1478253351172,
-      name: 'Adam Warlock',
-      imgid: 'warlock',
-      skills: [
-        { strength: 5 },
-        { intelligence: 3 },
-        { fightingAbility: 2 },
-        { speed: 7 }
-      ]
+      id: 1,
+      name: 'Galactus',
+      imgid: 'galactus'
     },
-  ]
-}];
+   two: {
+      id: 2,
+      name: 'Thanos',
+      imgid: 'thanos'
+    },
+    three: {
+      id: 3,
+      name: 'Silver Surfer',
+      imgid: 'surfer'
+    },
+   four: {
+      id: 4,
+      name: 'Adam Warlock',
+      imgid: 'warlock'
+    },
+};
 
 // Get all quizzes
 app.get('/cards', (request, response) => {

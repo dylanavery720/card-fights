@@ -1,23 +1,21 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
   height: 100px;
   border-radius: 25%;
   border: 2px solid yellowgreen;
 }
 
 .App-header {
+  display: flex;
   background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
-}
-
-.App-intro {
-  font-size: large;
+  justify-content: space-around;
 }
 
 .cards {
@@ -29,15 +27,16 @@
 }
 
 .card-hold {
-  display: inline-block;
+  display: flex;
+  justify-content: space-around;
 }
 
 .team-display{
-  color: black;
-  text-shadow: -1px 0 yellowgreen, 0 1px yellowgreen, 1px 0 yellowgreen, 0 -1px yellowgreen;
   display: block;
-  width: 20%;
-  position: absolute;
+  width: 150px;
+  color: black;
+  margin: 5px;
+  text-shadow: -1px 0 yellowgreen, 0 1px yellowgreen, 1px 0 yellowgreen, 0 -1px yellowgreen;
 }
 
 .block {
@@ -46,12 +45,24 @@
 }
 
 .choices {
-  width: 400px;
+  justify-content: center;
+  text-align: center;
+}
+
+.header-logo {
   margin: 0 auto;
-  display: inline-block;
+   text-align: center;
 }
 
 input {
   display: block;
   margin: 0 auto;
+}
+
+button {
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
 }

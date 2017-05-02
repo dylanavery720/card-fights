@@ -67,17 +67,21 @@ apiCall() {
     return (
       <div className="App">
         <div className="App-header">
-          <h2 className="team-display">YOUR TEAM:</h2>
           <div>
+          <h2 className="team-display">YOUR TEAM:</h2>
+          {this.props.team.map((char, i) => <h2 key={i} className="team-display">{char.name}</h2>)}
+          </div>
+          <div className="header-logo">
           <img src={logo} className="App-logo" alt="logo" />
-          {this.props.team.map(char => <h2 className="team-display">{char.name}</h2>)}
           <h2 onClick={this.apiCall.bind(this)}>Marvel Card Fights</h2>
+          </div>
         </div>
-        </div>
-        {this.state.ready && <div>
+        {this.state.ready && 
+        <div>
           <h2>CHOOSE YOUR TEAM OF 2</h2>
-        {this.props.data && this.loadChoices()}
-        <button onClick={this.startFight.bind(this)}>Submit</button></div>}
+          <div className="card-hold">{this.props.data && this.loadChoices()}
+        </div></div>}
+        <button onClick={this.startFight.bind(this)}>Submit</button>
         {!this.state.ready && this.props.children}
       </div>
     );

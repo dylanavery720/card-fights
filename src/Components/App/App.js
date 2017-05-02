@@ -43,18 +43,19 @@ apiCall() {
 
   loadChoices() {
     const { data } = this.props
-    let newArray = []
+    let charArray = []
     for (var char in data) {
-         newArray.push(<div key={data[char].id} className="choices">
-                <img className="cards" alt="alt" src={`./${data[char].imgid}.jpg`} />
+         const c = data[char]
+         charArray.push(<div key={c.id} className="choices">
+                <img className="cards" alt="alt" src={`./${c.imgid}.jpg`} />
                 <button
-                  value={data[char]}
+                  value={c}
                   className="block"
-                  onClick={(e) => this.handleChar(e, data[char])}>ADD</button>
-                <label>{data[char].name}</label>
+                  onClick={(e) => this.handleChar(e, c)}>ADD</button>
+                <label>{c.name}</label>
               </div>)
     } 
-    return newArray
+    return charArray
   }
 
   startFight() {

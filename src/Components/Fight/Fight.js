@@ -25,7 +25,13 @@ class Fight extends Component {
   }
 
   componentDidMount() {
-    let randoFunc = () => this.props.data.characters[Math.floor(this.props.data.characters.length * Math.random())]
+    let randoFunc = () => {
+      let result = []
+      for (var char in this.props.data) {
+         result.push(char)
+      }
+      return this.props.data[result[Math.floor(Math.random() * result.length)]]
+    }
     let rando1 = randoFunc()
     let rando2 = randoFunc()
     this.setState({ops: [rando1, rando2]}, () => this.assignRolls())
